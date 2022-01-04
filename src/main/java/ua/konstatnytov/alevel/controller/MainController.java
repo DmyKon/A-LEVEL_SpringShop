@@ -12,11 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import ua.konstatnytov.alevel.dao.OrderDAO;
 import ua.konstatnytov.alevel.dao.ProductDAO;
 import ua.konstatnytov.alevel.entity.Product;
@@ -59,7 +55,7 @@ public class MainController {
         return "/403";
     }
 
-    @RequestMapping("/")
+    @GetMapping("/")
     public String home() {
         return "index";
     }
