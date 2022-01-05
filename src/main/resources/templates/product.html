@@ -6,8 +6,8 @@
     <link rel="stylesheet" type="text/css" th:href="@{/styles.css}">
 </head>
 <body>
-<th:block th:include="/_header"></th:block>
-<th:block th:include="/_menu"></th:block>
+<div th:replace="fragments/header :: header"/>
+<div th:replace="fragments/menu :: menu"/>
 <div class="page-title">Product</div>
 <div th:if="${errorMessage!= null}" class="error-message" th:utext="${errorMessage}">
 </div>
