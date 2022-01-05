@@ -23,7 +23,7 @@ body {
     text-align: left;
     border-bottom: 1px solid #ccc;
     position: relative;
-    background: #555AAA;
+    background: #00c500;
     color: white;
 }
 .header-container .header-bar  {
@@ -42,7 +42,7 @@ body {
 }
 .menu-container a {
     margin: 5px 5px 5px 10px;
-    color: #00c500;
+    color: #004d99;
     font-weight: bold;
     text-decoration: none;
 }
