@@ -2,12 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Brush Shop</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/styles.css}" />
+    <title>Spring Shop</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/styles.css}"/>
 </head>
 <body>
-<div th:replace="/_header :: header" th:remove="tag"></div>
-<div th:replace="/_menu :: menu" th:remove="tag"></div>
-<div class="page-title">Welcome to Brush Shop!</div>
+<div th:replace="fragments/header :: header"/>
+<div th:replace="fragments/menu :: menu"/>
+<div class="page-title">Welcome to Spring Shop!</div>
 </body>
 </html>
