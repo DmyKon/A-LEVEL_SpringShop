@@ -6,8 +6,8 @@
     <link rel="stylesheet" type="text/css" th:href="@{/styles.css}" />
 </head>
 <body>
-<div th:replace="/_header :: header"></div>
-<div th:replace="/_menu :: menu"></div>
+<div th:replace="/_header :: header" th:remove="tag"></div>
+<div th:replace="/_menu :: menu" th:remove="tag"></div>
 <div class="page-title">Welcome to Brush Shop!</div>
 </body>
 </html>
