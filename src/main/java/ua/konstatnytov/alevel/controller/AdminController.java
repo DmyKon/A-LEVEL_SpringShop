@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -12,11 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import ua.konstatnytov.alevel.dao.OrderDAO;
 import ua.konstatnytov.alevel.dao.ProductDAO;
 import ua.konstatnytov.alevel.entity.Product;
@@ -50,33 +47,33 @@ public class AdminController {
         }
     }
 
-    @RequestMapping(value = "/admin/login", method = RequestMethod.GET)
+    @GetMapping("/admin/login")
     public String login() {
         return "login";
     }
 
-    @RequestMapping(value = "/admin/accountInfo", method = RequestMethod.GET)
+    @GetMapping("/admin/accountInfo")
     public String accountInfo(Model model) {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("userDetails", userDetails);
         return "accountInfo";
     }
 
-    @RequestMapping(value = "/admin/orderList", method = RequestMethod.GET)
+    @GetMapping("/admin/orderList")
     public String orderList(Model model, @RequestParam(value = "page", defaultValue = "1") String pageStr) {
         int page = 1;
         try {
             page = Integer.parseInt(pageStr);
         } catch (Exception ignored) {
         }
-        final int MAX_RESULT = 5;
-        final int MAX_NAVIGATION_PAGE = 10;
-        PaginationResult<OrderInfo> paginationResult = orderDAO.listOrderInfo(page, MAX_RESULT, MAX_NAVIGATION_PAGE);
+        final int maxResult = 10;
+        final int maxNavigationPage = 8;
+        PaginationResult<OrderInfo> paginationResult = orderDAO.listOrderInfo(page, maxResult, maxNavigationPage);
         model.addAttribute("paginationResult", paginationResult);
         return "orderList";
     }
 
-    @RequestMapping(value = "/admin/product", method = RequestMethod.GET)
+    @GetMapping("/admin/product")
     public String product(Model model, @RequestParam(value = "code", defaultValue = "") String code) {
         ProductForm productForm = null;
         if (code != null && code.length() > 0) {
@@ -93,7 +90,7 @@ public class AdminController {
         return "product";
     }
 
-    @RequestMapping(value = "/admin/product", method = RequestMethod.POST)
+    @PostMapping("/admin/product")
     public String productSave(
             Model model,
             @ModelAttribute("productForm") @Validated ProductForm productForm,
@@ -112,7 +109,7 @@ public class AdminController {
         return "redirect:/productList";
     }
 
-    @RequestMapping(value = "/admin/order", method = RequestMethod.GET)
+    @GetMapping("/admin/order")
     public String orderView(Model model, @RequestParam("orderId") String orderId) {
         OrderInfo orderInfo = null;
         if (orderId != null) {

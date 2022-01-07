@@ -70,11 +70,11 @@ public class OrderDAO {
     }
 
     public PaginationResult<OrderInfo> listOrderInfo(int page, int maxResult, int maxNavigationPage) {
-        String sql = "Select new " + OrderInfo.class.getName()//
-                + "(ord.id, ord.orderDate, ord.orderNum, ord.amount, "
-                + " ord.customerName, ord.customerAddress, ord.customerEmail, ord.customerPhone) " + " from "
-                + Order.class.getName() + " ord "//
-                + " order by ord.orderNum desc";
+        String sql = "Select new " + OrderInfo.class.getName()
+                + "(o.id, o.orderDate, o.orderNum, o.amount, "
+                + " o.customerName, o.customerAddress, o.customerEmail, o.customerPhone) " + " from "
+                + Order.class.getName() + " o "
+                + " order by o.orderNum desc";
         Session session = sessionFactory.getCurrentSession();
         Query<OrderInfo> query = session.createQuery(sql, OrderInfo.class);
         return new PaginationResult<>(query, page, maxResult, maxNavigationPage);
@@ -90,15 +90,15 @@ public class OrderDAO {
         if (order == null) {
             return null;
         }
-        return new OrderInfo(order.getId(), order.getOrderDate(), //
-                order.getOrderNum(), order.getAmount(), order.getCustomerName(), //
+        return new OrderInfo(order.getId(), order.getOrderDate(),
+                order.getOrderNum(), order.getAmount(), order.getCustomerName(),
                 order.getCustomerAddress(), order.getCustomerEmail(), order.getCustomerPhone());
     }
 
     public List<OrderDetailInfo> listOrderDetailInfo(String orderId) {
-        String sql = "Select new " + OrderDetailInfo.class.getName() //
-                + "(d.id, d.product.code, d.product.name , d.quanity,d.price,d.amount) "//
-                + " from " + OrderDetail.class.getName() + " d "//
+        String sql = "Select new " + OrderDetailInfo.class.getName()
+                + "(d.id, d.product.code, d.product.name, d.quanity, d.price, d.amount) "
+                + " from " + OrderDetail.class.getName() + " d "
                 + " where d.order.id = :orderId ";
         Session session = sessionFactory.getCurrentSession();
         Query<OrderDetailInfo> query = session.createQuery(sql, OrderDetailInfo.class);

@@ -10,10 +10,17 @@
 <div th:replace="fragments/header :: header"/>
 <div th:replace="fragments/menu :: menu"/>
 <div class="page-title">Product List</div>
+Sort by:
+<a th:href="@{/productList?sort=createDate}">Date</a>
+|
+<a th:href="@{/productList?sort=name}">Name</a>
+|
+<a th:href="@{/productList?sort=price}">Price</a>
+<br>
 <div class="product-preview-container" th:each="prodInfo : ${paginationProducts.list}">
     <ul>
         <li><img class="product-image"
-                 th:src="@{|/productImage?code=${prodInfo.code}|}" /></li>
+                 th:src="@{|/productImage?code=${prodInfo.code}|}"/></li>
         <li>Code: <span th:utext="${prodInfo.code}"></span></li>
         <li>Name: <span th:utext="${prodInfo.name}"></span></li>
         <li>Price: <span th:utext="${#numbers.formatDecimal(prodInfo.price,1,2,'COMMA')}"></span></li>
@@ -30,8 +37,9 @@
 </div>
 <br/>
 <div class="page-navigator" th:if="${paginationProducts.totalPages > 1}">
-    <th:block th:each="page : ${paginationProducts.navigationPages}">
-        <a th:href="@{|/productList?page=${page}|}" th:if="${page != -1}"
+    <th:block th:each="page : ${paginationProducts.navigationPages}"
+              th:with="sort=${param.sort != null} ? ${param.sort} : 'createDate'">
+        <a th:href="@{|/productList?page=${page}&sort=${sort}|}" th:if="${page != -1}"
            class="nav-item" th:utext="${page}"></a>
         <span class="nav-item" th:if="${page == -1}"> ... </span>
     </th:block>
