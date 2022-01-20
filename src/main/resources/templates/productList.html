@@ -10,13 +10,6 @@
 <div th:replace="fragments/header :: header"/>
 <div th:replace="fragments/menu :: menu"/>
 <div class="page-title">Product List</div>
-Sort by:
-<a th:href="@{/productList?sort=createDate}">Date</a>
-|
-<a th:href="@{/productList?sort=name}">Name</a>
-|
-<a th:href="@{/productList?sort=price}">Price</a>
-<br>
 <br>
 <div>
     <form method="get">
@@ -24,6 +17,14 @@ Sort by:
         <button type="submit">Поиск</button>
     </form>
 </div>
+<br>
+<br>
+Sort by:
+<a th:href="@{/productList?sort=createDate}">Date</a>
+|
+<a th:href="@{/productList?sort=name}">Name</a>
+|
+<a th:href="@{/productList?sort=price}">Price</a>
 <br>
 <br>
 <div class="product-preview-container" th:each="prodInfo : ${paginationProducts.list}">
