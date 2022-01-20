@@ -11,13 +11,6 @@
 <div th:replace="fragments/menu :: menu"/>
 <div class="page-title">Product List</div>
 <br>
-<div>
-    <form method="get">
-        <input type="text" name="name" placeholder="Поиск"/>
-        <button type="submit">Поиск</button>
-    </form>
-</div>
-<br>
 <br>
 Sort by:
 <a th:href="@{/productList?sort=createDate}">Date</a>
@@ -45,6 +38,14 @@ Sort by:
         </th:block>
     </ul>
 </div>
+<br>
+<div>
+    <form method="get">
+        <input type="text" name="name" placeholder="Поиск"/>
+        <button type="submit">Поиск</button>
+    </form>
+</div>
+<br>
 <br/>
 <div class="page-navigator" th:if="${paginationProducts.totalPages > 1}">
     <th:block th:each="page : ${paginationProducts.navigationPages}"
